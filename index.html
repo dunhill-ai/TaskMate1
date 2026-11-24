@@ -1,0 +1,466 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TaskMate - A student task and deadline management dashboard.">
+
+    <title>TaskMate | Student Productivity Dashboard</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+
+<div class="app-container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <a href="#dashboard" class="brand">
+            <span class="brand-icon">✓</span>
+            <span>Task<span class="brand-highlight">Mate.</span></span>
+        </a>
+
+        <div class="sidebar-label">WORKSPACE</div>
+
+        <nav class="sidebar-nav" aria-label="Main navigation">
+            <a href="#dashboard" class="nav-link active">
+                <span class="nav-icon">▦</span> Dashboard
+            </a>
+
+            <a href="#tasks" class="nav-link">
+                <span class="nav-icon">▤</span> My Tasks
+            </a>
+
+            <a href="#deadlines" class="nav-link">
+                <span class="nav-icon">◷</span> Deadlines
+            </a>
+
+            <a href="#completed" class="nav-link">
+                <span class="nav-icon">✓</span> Completed
+            </a>
+        </nav>
+
+        <div class="sidebar-label general-label">GENERAL</div>
+
+        <nav class="sidebar-nav">
+            <a href="#about" class="nav-link">
+                <span class="nav-icon">ⓘ</span> About TaskMate
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="sidebar-decoration">✦</div>
+            <h3>Stay Productive!</h3>
+            <p>Plan your tasks, manage your deadlines, and achieve your academic goals.</p>
+            <a href="#addTask" class="sidebar-cta">Create a task <span>→</span></a>
+        </div>
+
+        <div class="sidebar-footer">
+            <span class="online-dot"></span>
+            Student Productivity Workspace
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOPBAR -->
+        <header class="topbar" id="dashboard">
+
+            <div class="mobile-brand">
+                <span class="brand-icon">✓</span>
+                Task<span class="brand-highlight">Mate.</span>
+            </div>
+
+            <div class="topbar-search">
+                <span class="search-icon">⌕</span>
+                <input
+                    type="search"
+                    id="taskSearch"
+                    placeholder="Search tasks or subjects..."
+                    aria-label="Search tasks or subjects"
+                >
+                <span class="search-shortcut">SEARCH</span>
+            </div>
+
+            <div class="topbar-profile">
+
+                <div class="profile-avatar" id="studentInitial">S</div>
+
+                <div class="profile-details">
+                    <strong id="studentName">Student</strong>
+                    <span>My Account</span>
+                </div>
+
+                <button type="button" id="editNameBtn" class="profile-edit">
+                    Edit
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE INTRO -->
+        <section class="welcome-section">
+
+            <div>
+                <div class="eyebrow">
+                    <span class="eyebrow-dot"></span>
+                    STUDENT WORKSPACE
+                </div>
+
+                <h1>Dashboard Overview</h1>
+
+                <p>Plan, prioritize, and accomplish your academic tasks with ease.</p>
+            </div>
+
+            <a href="#addTask" class="primary-button">
+                <span>＋</span> Add New Task
+            </a>
+
+        </section>
+
+
+        <!-- STATISTICS -->
+        <section class="stats-grid" aria-label="Task statistics">
+
+            <article class="stat-card stat-primary">
+                <div class="stat-top">
+                    <span>Total Tasks</span>
+                    <span class="stat-icon">▤</span>
+                </div>
+
+                <h2 id="totalTasks">0</h2>
+                <p>All your recorded activities</p>
+                <div class="stat-bottom">
+                    <span class="stat-indicator">●</span> Your task overview
+                </div>
+            </article>
+
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Pending Tasks</span>
+                    <span class="stat-icon green-icon">◷</span>
+                </div>
+
+                <h2 id="pendingTasks">0</h2>
+                <p>Activities waiting for completion</p>
+                <div class="stat-bottom">Keep making progress</div>
+            </article>
+
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Completed Tasks</span>
+                    <span class="stat-icon mint-icon">✓</span>
+                </div>
+
+                <h2 id="completedTasks">0</h2>
+                <p>Successfully finished activities</p>
+                <div class="stat-bottom">Great work!</div>
+            </article>
+
+
+            <article class="stat-card">
+                <div class="stat-top">
+                    <span>Upcoming Deadlines</span>
+                    <span class="stat-icon amber-icon">⌛</span>
+                </div>
+
+                <h2 id="upcomingTasks">0</h2>
+                <p>Due today or within 7 days</p>
+                <div class="stat-bottom">Stay ahead of deadlines</div>
+            </article>
+
+        </section>
+
+
+        <!-- ANALYTICS AND REMINDERS -->
+        <section class="overview-grid">
+
+            <article class="panel analytics-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <h2>Task Completion Progress</h2>
+                        <p>Monitor your academic productivity.</p>
+                    </div>
+
+                    <span class="panel-tag">OVERVIEW</span>
+                </div>
+
+                <div class="progress-overview">
+
+                    <div class="progress-circle" id="progressCircle">
+                        <div class="progress-circle-inner">
+                            <strong id="completionRate">0%</strong>
+                            <span>Completed</span>
+                        </div>
+                    </div>
+
+                    <div class="progress-details">
+
+                        <div class="progress-item">
+                            <span class="legend-dot completed-dot"></span>
+                            <span>Completed</span>
+                            <strong id="progressCompleted">0</strong>
+                        </div>
+
+                        <div class="progress-item">
+                            <span class="legend-dot pending-dot"></span>
+                            <span>Pending</span>
+                            <strong id="progressPending">0</strong>
+                        </div>
+
+                        <div class="progress-item">
+                            <span class="legend-dot total-dot"></span>
+                            <span>Total Tasks</span>
+                            <strong id="progressTotal">0</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="progress-caption" id="progressCaption">
+                    Start adding tasks to track your progress!
+                </div>
+
+            </article>
+
+
+            <article class="panel reminders-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <h2>Upcoming Reminders</h2>
+                        <p>Your next academic deadlines.</p>
+                    </div>
+
+                    <a href="#deadlines" class="text-link">View all →</a>
+                </div>
+
+                <div id="deadlinePreview" class="reminder-list">
+                    <p class="empty-message">No upcoming deadlines.</p>
+                </div>
+
+            </article>
+
+        </section>
+
+
+        <!-- MY TASKS -->
+        <section class="panel tasks-panel" id="tasks">
+
+            <div class="panel-heading tasks-heading">
+
+                <div>
+                    <div class="eyebrow">TASK MANAGEMENT</div>
+                    <h2>My Tasks</h2>
+                    <p>Organize and manage your school activities.</p>
+                </div>
+
+                <a href="#addTask" class="primary-button small-button">
+                    ＋ Add Task
+                </a>
+
+            </div>
+
+
+            <div class="task-toolbar">
+
+                <div class="task-toolbar-label">
+                    <span class="toolbar-dot"></span>
+                    Your activity list
+                </div>
+
+                <label class="filter-label" for="priorityFilter">
+                    Filter:
+                    <select id="priorityFilter">
+                        <option value="All">All Priorities</option>
+                        <option value="High">High Priority</option>
+                        <option value="Medium">Medium Priority</option>
+                        <option value="Low">Low Priority</option>
+                    </select>
+                </label>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table class="task-table">
+
+                    <thead>
+                        <tr>
+                            <th>Task Name</th>
+                            <th>Subject</th>
+                            <th>Due Date</th>
+                            <th>Priority</th>
+                            <th>Status / Actions</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="taskList">
+                        <tr>
+                            <td colspan="5" class="empty-cell">
+                                No tasks yet. Add your first activity!
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADD TASK -->
+        <section class="panel add-task-panel" id="addTask">
+
+            <div class="panel-heading">
+                <div>
+                    <div class="eyebrow">TASK CREATION</div>
+                    <h2>Create New Task</h2>
+                    <p>Add your school activities and set their deadlines.</p>
+                </div>
+            </div>
+
+
+            <form id="taskForm" class="task-form">
+
+                <div class="form-group">
+                    <label for="taskName">Task Name</label>
+                    <input
+                        type="text"
+                        id="taskName"
+                        placeholder="e.g. HTML Project"
+                        maxlength="100"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input
+                        type="text"
+                        id="subject"
+                        placeholder="e.g. IT111"
+                        maxlength="60"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="dueDate">Due Date</label>
+                    <input type="date" id="dueDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="priority">Priority Level</label>
+                    <select id="priority" required>
+                        <option value="">Choose priority</option>
+                        <option value="High">High</option>
+                        <option value="Medium">Medium</option>
+                        <option value="Low">Low</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="primary-button form-submit">
+                    ＋ Create Task
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <!-- DEADLINES -->
+        <section class="panel list-panel" id="deadlines">
+
+            <div class="panel-heading">
+                <div>
+                    <div class="eyebrow">SCHEDULE</div>
+                    <h2>Upcoming Deadlines</h2>
+                    <p>Keep track of your pending submissions.</p>
+                </div>
+            </div>
+
+            <div id="deadlineList" class="deadline-list">
+                <p class="empty-message">No upcoming deadlines.</p>
+            </div>
+
+        </section>
+
+
+        <!-- COMPLETED -->
+        <section class="panel list-panel" id="completed">
+
+            <div class="panel-heading">
+                <div>
+                    <div class="eyebrow">ACCOMPLISHMENTS</div>
+                    <h2>Completed Activities</h2>
+                    <p>Your successfully finished school activities.</p>
+                </div>
+            </div>
+
+            <div id="completedList" class="completed-list">
+                <p class="empty-message">No completed tasks yet.</p>
+            </div>
+
+        </section>
+
+
+        <!-- ABOUT -->
+        <section class="panel about-panel" id="about">
+
+            <div class="about-symbol">✓</div>
+
+            <div>
+                <div class="eyebrow">ABOUT THE WEBSITE</div>
+                <h2>About TaskMate</h2>
+
+                <p>
+                    TaskMate is a student productivity and task management
+                    website designed to help students organize academic
+                    activities, monitor deadlines, prioritize assignments,
+                    and track their progress in one convenient workspace.
+                </p>
+
+                <div class="about-features">
+                    <span>✓ Task Management</span>
+                    <span>✓ Deadline Monitoring</span>
+                    <span>✓ Progress Tracking</span>
+                    <span>✓ Priority Organization</span>
+                </div>
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="footer">
+            <p>© 2026 TaskMate | Student Productivity Dashboard</p>
+            <p>Stay Organized. Stay Focused. Stay Productive.</p>
+        </footer>
+
+    </main>
+
+</div>
+
+</body>
+</html>
